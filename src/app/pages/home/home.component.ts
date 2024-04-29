@@ -1,5 +1,6 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Observable, of, Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Country } from 'src/app/core/models/Olympic';
 
@@ -9,26 +10,20 @@ import { Country } from 'src/app/core/models/Olympic';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit, OnDestroy {
-  public olympics: Country[] | null = null;
-  private subscription: Subscription | null = null;
+  public olympics$: Observable<Country[] | null> = of(null);
+  private unsubscribe$ = new Subject<void>();
 
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
-    this.subscription = this.olympicService.getOlympics().subscribe(
-      (data) => {
-        this.olympics = data;
-      },
-      (error) => {
-        console.error('Error fetching data:', error);
-      }
+    this.olympics$ = this.olympicService.getOlympics().pipe(
+      takeUntil(this.unsubscribe$)
     );
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 }
 
