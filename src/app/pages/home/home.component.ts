@@ -19,12 +19,33 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.olympics$ = this.olympicService.getOlympics().pipe(
       takeUntil(this.unsubscribe$)
     );
+    this.olympics$.subscribe(data => {
+      if (data) {
+        this.createPieChart(data);
+      }
+    });
   }
 
   ngOnDestroy(): void {
     this.unsubscribe$.next();
     this.unsubscribe$.complete();
   }
+
+  createPieChart(data: Country[]): void {
+    const countryLabels = data.map(country => country.country);
+    const medalCounts = data.map(country =>
+      country.participations.reduce((acc, participation) => acc + participation.medalsCount, 0)
+    );
+
+    // Chart.js data
+    this.pieChartData = medalCounts;
+    this.pieChartLabels = countryLabels;
+  }
+
+  // Define pie chart data properties here
+  pieChartData: number[] = [];
+  pieChartLabels: string[] = [];
 }
+
 
 
