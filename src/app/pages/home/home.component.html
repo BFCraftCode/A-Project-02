@@ -1,4 +1,5 @@
 <br><br><br>
+<header><i class="material-icons" style="color: rgb(82, 97, 97);">cloud</i></header>
 <div class="container">
 <h3 class="title">Medals per Country</h3>
 </div>
@@ -13,12 +14,6 @@
     [animations]="true"
     [legend]="false"
     [labels]="true">
-    <ng-template #tooltipTemplate let-model="model">
-      <div class="tooltip">
-        <p>{{model.name}}</p>
-        <p>{{model.value}}</p>
-      </div>
-    </ng-template>
  </ngx-charts-pie-chart>
 </div>
 

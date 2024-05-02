@@ -1,3 +1,6 @@
+@import '~@fortawesome/fontawesome-free/css/all.css';
+
+
 .container {
     display: flex;
     justify-content:center;
@@ -7,6 +10,7 @@
 .box {
     margin: 15px;
     padding: 5px;
+    color: rgb(118, 116, 116);
     border: 1.5px solid rgb(20, 132, 142);
     border-radius: 5px;
     text-align: center;
@@ -30,3 +34,4 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
   background-color: rgb(20, 132, 142);
   box-shadow: 0 6px 20px 0 rgb(20, 132, 142);
 }
+
