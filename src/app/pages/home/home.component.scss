@@ -3,12 +3,13 @@
     justify-content: center;
   }
 
-.custom-tooltip {
-    background-color: #333; /* Change to your desired background color */
-    color: white; /* Change to your desired text color */
-    padding: 8px;
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(25, 117, 88, 0.1);
+  .custom-tooltip {
+    background-color: white;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
+  
   
 
