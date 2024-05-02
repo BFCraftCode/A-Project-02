@@ -1,7 +1,25 @@
-<h2>Medals per Country</h2>
+<br><br><br>
 <div class="container">
-    <p class="box">Number of JOs <br> {{ getTotalParticipations() }}</p>
-    <p class="box">Number of Countries <br> {{ olympics.length }}</p>
+<h3 class="title">Medals per Country</h3>
 </div>
-<canvas id="pieChart"></canvas>
+<div class="container">
+    <p class="box">Number of JOs <br> <strong>{{ getTotalParticipations() }}</strong></p>
+    <p class="box">Number of Countries <br> <strong>{{ olympics.length }}</strong></p>
+</div>
+<div  class="chart-container">
+ <ngx-charts-pie-chart style="text-align: center;"
+    [view]="view"
+    [results]="pieChartData"
+    [animations]="true"
+    [legend]="false"
+    [labels]="true">
+    <ng-template #tooltipTemplate let-model="model">
+      <div class="custom-tooltip">
+        <p>{{model.name}}</p>
+        <p>{{model.value}}</p>
+      </div>
+    </ng-template>
+ </ngx-charts-pie-chart>
+</div>
+
 

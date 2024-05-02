@@ -3,7 +3,6 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Country } from 'src/app/core/models/Olympic';
-import Chart from 'chart.js/auto';
 
 @Component({
   selector: 'app-home',
@@ -14,6 +13,13 @@ export class HomeComponent implements OnInit, OnDestroy {
   public olympics: Country[] = [];
   private unsubscribe$ = new Subject<void>();
 
+  // Chart options
+  view: [number, number] = [700, 400];
+
+
+  // Pie chart data
+  pieChartData: { name: string, value: number }[] = [];
+
   constructor(private olympicService: OlympicService) {}
 
   ngOnInit(): void {
@@ -22,7 +28,7 @@ export class HomeComponent implements OnInit, OnDestroy {
       .subscribe((data: Country[] | null) => {
         if (data) {
           this.olympics = data;
-          this.createPieChart();
+          this.processData();
         }
       });
   }
@@ -32,24 +38,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  createPieChart(): void {
-    const ctx = document.getElementById('pieChart') as HTMLCanvasElement;
-    const medalsData = this.aggregateMedalsData();
-    new Chart(ctx, {
-      type: 'pie',
-      data: {
-        labels: medalsData.map((countryData) => countryData.country),
-        datasets: [{
-          label: 'Medals',
-          data: medalsData.map((countryData) => countryData.totalMedals),
-          backgroundColor: this.getRandomColors(medalsData.length),
-        }],
-      },
-      options: {
-        responsive: true, // Makes the chart responsive to container size
-        maintainAspectRatio: false, // Allows the chart to be resized freely
-      },
-    });
+  processData(): void {
+    const aggregatedData = this.aggregateMedalsData();
+    this.pieChartData = aggregatedData.map(countryData => ({
+      name: countryData.country,
+      value: countryData.totalMedals
+    }));
   }
   
 

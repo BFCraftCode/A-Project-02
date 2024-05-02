@@ -1,13 +1,22 @@
 .container {
     display: flex;
-    justify-content: center;
+    justify-content:center;
     align-items: center;
-  }
+}
   
-  .box {
-    background-color: #ffffff;
-    padding: 10px 20px;
+.box {
+    margin: 15px;
+    padding: 5px;
+    border: 1.5px solid rgb(20, 132, 142);
     border-radius: 5px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     text-align: center;
-  }
+}
+
+.title {
+  background-color: rgb(20, 132, 142);
+  color: #ffffff;
+  margin: 15px;
+  padding: 5px;
+  border-radius: 5px;
+  text-align: center;
+}
