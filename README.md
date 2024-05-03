@@ -1,29 +1,41 @@
 # OlympicGamesStarter
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.3.
+## Overview
 
-Don't forget to install your node_modules before starting (`npm install`).
+The Olympic Data Visualization application allows users to visualize data related to Olympic participation and medal counts for different countries across multiple years. The application provides interactive charts and graphs to present the data in a meaningful way.
 
-## Development server
+## Features
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+- Display data for Olympic participation and medal counts for various countries.
+- Visualize data using pie charts and line charts.
+- Navigate between different views, including the home page and detail page for individual countries.
+- Responsive layout to ensure optimal viewing experience across devices.
 
-## Build
+## Technologies Used
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- Angular: Frontend framework for building single-page applications.
+- ngx-charts: Angular charting library for creating interactive charts and graphs.
+- TypeScript: Typed superset of JavaScript for building scalable applications.
 
-## Where to start
+## How to Run the Application
 
-As you can see, an architecture has already been defined for the project. It is just a suggestion, you can choose to use your own. The predefined architecture includes (in addition to the default angular architecture) the following:
+To run the Olympic Data Visualization application locally, follow these steps:
 
-- `components` folder: contains every reusable components
-- `pages` folder: contains components used for routing
-- `core` folder: contains the business logic (`services` and `models` folders)
+1. Clone the repository:
+````
+git clone https://github.com/azer7777/A-Project-02.git
+````
+2. Navigate to the project directory:
+````
+cd A-Project-02
+````
+3. Install the dependencies using npm:
+````
+npm install
+````
+4. Start the development server:
+````
+npm start
+````
+5. Open your web browser and navigate to http://localhost:4200 to view the application.
 
-I suggest you to start by understanding this starter code. Pay an extra attention to the `app-routing.module.ts` and the `olympic.service.ts`.
-
-Once mastered, you should continue by creating the typescript interfaces inside the `models` folder. As you can see I already created two files corresponding to the data included inside the `olympic.json`. With your interfaces, improve the code by replacing every `any` by the corresponding interface.
-
-You're now ready to implement the requested features.
-
-Good luck!
