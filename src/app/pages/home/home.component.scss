@@ -1,8 +1,16 @@
 .chart-container {
-    display: flex;
-    justify-content: center;
-  }
+  display: flex;
+  justify-content: center;
+  width: 100%; /* Ensure fluid width */
+}
 
+/* Media query for smaller screens */
+@media screen and (max-width: 768px) {
+  .chart-container {
+    flex-direction: column; /* Stack chart vertically on smaller screens */
+    align-items: center; /* Center chart vertically */
+  }
+}
   
   
 
