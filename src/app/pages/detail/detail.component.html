@@ -1,0 +1,24 @@
+<br><br><br>
+<button (click)="goBack()">Return</button>
+<div class="container">
+<h3 class="title">{{ selectedCountry }}</h3>
+</div>
+<div class="container">
+  <p class="box">Number of entries <br> <strong>{{ joParticipations() }}</strong></p>
+  <p class="box">Total number of medals <br> <strong>{{ Totalmedals() }}</strong></p>
+  <p class="box">Total number of athletes <br> <strong>{{ numberAthletes() }}</strong></p>
+</div>
+<div  class="chart-container">
+<ngx-charts-line-chart
+      [view]="[700, 300]"
+      [tooltipDisabled]="true"
+      [results]="lineChartData"
+      [xAxis]="true"
+      [yAxis]="true"
+      [legend]="false"
+      [showXAxisLabel]="true"
+      [showYAxisLabel]="true"
+      xAxisLabel="Dates">
+</ngx-charts-line-chart>
+</div>
+  

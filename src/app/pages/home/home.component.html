@@ -1,5 +1,4 @@
 <br><br><br>
-<header><i class="material-icons" style="color: rgb(82, 97, 97);">cloud</i></header>
 <div class="container">
 <h3 class="title">Medals per Country</h3>
 </div>
@@ -13,7 +12,9 @@
     [results]="pieChartData"
     [animations]="true"
     [legend]="false"
-    [labels]="true">
+    [labels]="true"
+    (select)="onSliceClick($event)">
+    
  </ngx-charts-pie-chart>
 </div>
 

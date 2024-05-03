@@ -3,6 +3,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Country } from 'src/app/core/models/Olympic';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -20,7 +21,10 @@ export class HomeComponent implements OnInit, OnDestroy {
   // Pie chart data
   pieChartData: { name: string, value: number}[] = [];
 
-  constructor(private olympicService: OlympicService) {}
+  constructor(
+    private olympicService: OlympicService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.olympicService.getOlympics()
@@ -64,4 +68,12 @@ export class HomeComponent implements OnInit, OnDestroy {
     });
     return Object.entries(aggregatedData).map(([country, totalMedals]) => ({ country, totalMedals }));
   }
+
+  onSliceClick(event: any): void {
+    if (event) {
+      const selectedCountry = event.name;
+      this.router.navigate(['/detail', selectedCountry]);
+    }
+  }
 }
+
