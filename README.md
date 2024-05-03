@@ -1,8 +1,8 @@
-# OlympicGamesStarter
+# Olympic Games App
 
 ## Overview
 
-The Olympic Data Visualization application allows users to visualize data related to Olympic participation and medal counts for different countries across multiple years. The application provides interactive charts and graphs to present the data in a meaningful way.
+The Olympic Games application allows users to visualize data related to Olympic participation and medal counts for different countries across multiple years. The application provides interactive charts and graphs to present the data in a meaningful way.
 
 ## Features
 
