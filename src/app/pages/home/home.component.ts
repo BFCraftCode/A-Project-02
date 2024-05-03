@@ -18,7 +18,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   // Pie chart data
-  pieChartData: { name: string, value: number }[] = [];
+  pieChartData: { name: string, value: number}[] = [];
 
   constructor(private olympicService: OlympicService) {}
 

@@ -30,8 +30,30 @@ ngx-tooltip-content.ngx-charts-tooltip-content.type-tooltip {
     border-top-color: rgb(20, 132, 142);
     box-shadow: 0 6px 20px 0 rgb(20, 132, 142);
   }
-
+  
+  /* Set fixed dimensions for the tooltip content */
+  min-width: 120px; 
+  max-width: 300px; 
+  padding: 10px; 
+  box-sizing: border-box; 
+ 
   background-color: rgb(20, 132, 142);
   box-shadow: 0 6px 20px 0 rgb(20, 132, 142);
+
+  /* Add white medal icon */
+  &:before {
+    content: '';
+    background-image: url('assets/icons/meda-svgrepo-com.svg');
+    background-size: contain; 
+    background-repeat: no-repeat;
+    width: 14px; 
+    height: 14px; 
+    position: absolute;
+    top: 36px; 
+    left: 35%; 
+    transform: translateX(-50%);
+  }
 }
+
+
 
