@@ -8,13 +8,12 @@
 </div>
 <div  class="chart-container">
  <ngx-charts-pie-chart style="text-align: center;"
-    [view]="view"
+    [view]="[700, 400]"
     [results]="pieChartData"
     [animations]="true"
     [legend]="false"
     [labels]="true"
-    (select)="onSliceClick($event)">
-    
+    (select)="onSliceClick($event)">    
  </ngx-charts-pie-chart>
 </div>
 

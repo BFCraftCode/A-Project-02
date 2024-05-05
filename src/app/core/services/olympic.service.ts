@@ -10,6 +10,7 @@ import { Country } from '../models/Olympic';
 export class OlympicService {
   private olympicUrl = './assets/mock/olympic.json';
   private olympics$ = new BehaviorSubject<Country[] | null>(null);
+  public olympics: Country[] = [];
 
   constructor(private http: HttpClient) {}
 
@@ -23,9 +24,45 @@ export class OlympicService {
       })
     );
   }
+  
+  processPieChartData(olympics: Country[]): { name: string, value: number }[] {
+    const aggregatedData = this.aggregateMedalsData(olympics);
+    return aggregatedData.map(countryData => ({
+      name: countryData.country,
+      value: countryData.totalMedals
+    }));
+  }
 
   getOlympics(): Observable<Country[] | null> {
     return this.olympics$.asObservable();
+  }
+  
+  aggregateMedalsData(olympics: Country[]): { country: string, totalMedals: number }[] {
+    const aggregatedData: { [key: string]: number } = {};
+  
+    // Aggregate total medals for each country
+    olympics.forEach((country) => {
+      country.participations.forEach((participation) => {
+        aggregatedData[country.country] = (aggregatedData[country.country] || 0) + participation.medalsCount;
+      });
+    });
+  
+    // Convert aggregated data into an array of objects
+    return Object.entries(aggregatedData).map(([country, totalMedals]) => ({ country, totalMedals }));
+  }
+  
+  processLineChartData(countryData: Country): { name: string, series: { name: string, value: number }[] }[] {
+    if (!countryData || !countryData.participations) {
+      return [];
+    }
+
+    return [{
+      name: countryData.country,
+      series: countryData.participations.map(participation => ({
+        name: participation.year.toString(),
+        value: participation.medalsCount
+      }))
+    }];
   }
 }
 
