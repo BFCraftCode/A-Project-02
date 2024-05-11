@@ -46,12 +46,21 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.unsubscribe$.complete();
   }
 
-  /**
-   * Calculates the total number of participations for all countries.
-   * @returns The total number of participations.
-   */
   getTotalParticipations(): number {
-    return this.olympics.reduce((total, country) => total + country.participations.length, 0);
+    // Initialize a Set to store unique participation IDs
+    const uniqueParticipationIds = new Set<number>();
+  
+    // Iterate through each country
+    this.olympics.forEach((country) => {
+      // Iterate through each participation of the country
+      country.participations.forEach((participation) => {
+        // Add the participation ID to the Set
+        uniqueParticipationIds.add(participation.id);
+      });
+    });
+  
+    // Return the size of the Set, which represents the count of unique participations
+    return uniqueParticipationIds.size;
   }
 
   /**
