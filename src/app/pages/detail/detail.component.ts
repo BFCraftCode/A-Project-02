@@ -1,9 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { OlympicService } from 'src/app/core/services/olympic.service';
 import { Country } from 'src/app/core/models/Olympic';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-detail',
@@ -11,10 +11,17 @@ import { Router } from '@angular/router';
   styleUrls: ['./detail.component.scss'],
 })
 export class DetailComponent implements OnInit, OnDestroy {
+  /** Name of the selected country. */
   selectedCountry: string = '';
+
+  /** Data of the selected country. */
   countryData: Country | undefined;
-  private subscription: Subscription | undefined;
+
+  /** Line chart data for displaying medal counts per participation. */
   lineChartData: any[] = [];
+
+  /** Subject to manage subscriptions and unsubscribe from observables. */
+  private unsubscribe$ = new Subject<void>();
 
   constructor(
     private route: ActivatedRoute,
@@ -27,10 +34,12 @@ export class DetailComponent implements OnInit, OnDestroy {
    * Fetches detail data for the selected country.
    */
   ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      this.selectedCountry = params['country'];
-      this.fetchDetailData();
-    });
+    this.route.params
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe(params => {
+        this.selectedCountry = params['country'];
+        this.fetchDetailData();
+      });
   }
 
   /**
@@ -38,27 +47,28 @@ export class DetailComponent implements OnInit, OnDestroy {
    * Unsubscribes from subscriptions to prevent memory leaks.
    */
   ngOnDestroy(): void {
-    if (this.subscription) {
-      this.subscription.unsubscribe();
-    }
+    this.unsubscribe$.next();
+    this.unsubscribe$.complete();
   }
 
   /**
    * Fetches detail data for the selected country.
    */
-  fetchDetailData(): void {
-    this.olympicService.getOlympics().subscribe((data: Country[] | null) => {
-      if (data) {
-        this.countryData = data.find(country => country.country === this.selectedCountry);
-        if (this.countryData) {
+  private fetchDetailData(): void {
+    this.olympicService.getOlympics()
+      .pipe(takeUntil(this.unsubscribe$))
+      .subscribe((data: Country[] | null) => {
+        if (data) {
+          this.countryData = data.find(country => country.country === this.selectedCountry);
+          if (!this.countryData) {
+            this.router.navigateByUrl('error');
+            return;
+          }
           this.lineChartData = this.olympicService.processLineChartData(this.countryData);
         } else {
           this.router.navigateByUrl('error');
         }
-      } else {
-        this.router.navigateByUrl('error');
-      }
-    });
+      });
   }
 
   /**
@@ -66,10 +76,7 @@ export class DetailComponent implements OnInit, OnDestroy {
    * @returns The number of participations.
    */
   joParticipations(): number {
-    if (this.countryData) {
-      return this.countryData.participations.length;
-    }
-    return 0; // Return 0 if countryData is undefined or null
+    return this.countryData ? this.countryData.participations.length : 0;
   }
 
   /**
@@ -104,8 +111,6 @@ export class DetailComponent implements OnInit, OnDestroy {
    * Navigates to the previous page.
    */
   goBack(): void {
-    this.router.navigate(['/']); // Navigate to the home page, adjust the route as needed
+    this.router.navigate(['/']);
   }
 }
-
-

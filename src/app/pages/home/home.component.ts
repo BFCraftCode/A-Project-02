@@ -59,11 +59,12 @@ export class HomeComponent implements OnInit, OnDestroy {
    * Navigates to the detail page for the selected country.
    * @param event The event object containing information about the clicked slice.
    */
-  onSliceClick(event: any): void {
+  onSliceClick(event: { name: string }): void {
     if (event) {
       const selectedCountry = event.name;
       this.router.navigate(['/detail', selectedCountry]);
     }
   }
 }
+
 
